@@ -1,14 +1,28 @@
 /*navbar*/
-.main--nav{
+.main-nav{
     display:flex;
     justify-content: space-between;
 }
 .main-nav img{   
     width:25%;
-    max-width: 100%;
+    max-width: 50%%;
+    margin-left: 2vw;
 }
-.nav-links li, .navbar a{
-    display:inline;
-    text-decoration:none;
+
+.nav-links{
+    padding-top:5vh; 
     list-style: none;
+    min-width: 70vw;
+}
+
+.nav-links li, .nav-links a{
+    display:inline;
+    text-decoration: none;
+    color:darkred;
+    padding:.5vw;
+}
+
+.nav-links li:nth-last-child(1){
+    border-bottom:black solid 2px
+    
 }
