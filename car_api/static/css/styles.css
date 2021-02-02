@@ -1,11 +1,11 @@
 /*navbar*/
 .main-nav{
     display:flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .main-nav img{   
     width:25%;
-    max-width: 50%%;
+    max-width: 50%;
     margin-left: 2vw;
 }
 .nav-links{
@@ -20,8 +20,7 @@
     padding:.5vw;
 }
 .nav-links li:nth-last-child(1){
-    border-bottom:black solid 2px
-    
+    border-bottom:blue solid 2px
 }
 
 /*Garage Banner Image and text*/
@@ -42,13 +41,9 @@
 
 /*Under Banner Section*/
 #api-information{
-    margin-top:7vh;
-}
-#api-info-text{
-    padding-left:5vw;
-}
-#car-api-image{
-    align-items: center;
+    margin:7vh 0;
+    justify-content: center;
+    text-align: center;
 }
 
 /*button section*/
@@ -76,7 +71,7 @@
 
 /*Footer Styling*/
 #footer{
-    justify-content: space-between;
+    justify-content: space-around;
     border-top: solid blue 5px;
 }
 .footer-logo{
