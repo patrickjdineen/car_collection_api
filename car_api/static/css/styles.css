@@ -1,0 +1,14 @@
+/*navbar*/
+.main--nav{
+    display:flex;
+    justify-content: space-between;
+}
+.main-nav img{   
+    width:25%;
+    max-width: 100%;
+}
+.nav-links li, .navbar a{
+    display:inline;
+    text-decoration:none;
+    list-style: none;
+}
