@@ -8,21 +8,78 @@
     max-width: 50%%;
     margin-left: 2vw;
 }
-
 .nav-links{
     padding-top:5vh; 
     list-style: none;
     min-width: 70vw;
 }
-
 .nav-links li, .nav-links a{
     display:inline;
     text-decoration: none;
-    color:darkred;
+    color:blue;
     padding:.5vw;
 }
-
 .nav-links li:nth-last-child(1){
     border-bottom:black solid 2px
     
+}
+
+/*Garage Banner Image and text*/
+.garage-banner{
+    max-width: 100vw;
+    text-align:center;
+}
+.banner-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color:white;
+    text-shadow: -1px -1px 0 blue, 1px -1px 0 blue, -1px 1px 0 blue, 1px 1px 0 blue;
+    font-size:20vh;
+}
+/*End Banner*/
+
+/*Under Banner Section*/
+#api-information{
+    margin-top:7vh;
+}
+#api-info-text{
+    padding-left:5vw;
+}
+#car-api-image{
+    align-items: center;
+}
+
+/*button section*/
+.button-image{
+    width:20%;
+}
+#button-section{
+    justify-content: space-around;
+    padding:2vh;
+}
+#button-section h4{
+    text-align:center;
+}
+
+#button-section img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#button-section button{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*Footer Styling*/
+#footer{
+    justify-content: space-between;
+    border-top: solid blue 5px;
+}
+.footer-logo{
+    width:50%;
+    max-width: 100%;
 }
