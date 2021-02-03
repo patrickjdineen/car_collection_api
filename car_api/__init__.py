@@ -14,5 +14,5 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-#brining in routes.py and models.py
-from car_api import routes
+#bringing in routes.py and models.py
+from car_api import routes, models

@@ -16,8 +16,8 @@ class User(db.Model):
     last_name = db.Column(db.String(150), nullable=True, default = "")
     email = db.Column(db.String(150), nullable = False)
     #password string has no limit to allow for complex password hasing from werkzeug
-    password = db.column(db.String, nullable = True, default = "")
-    #creates True/Falshe to tie account with google authentication
+    password = db.Column(db.String, nullable=True, default = "")
+    #creates True/False to tie account with google authentication
     g_auth_verify = db.Column(db.Boolean, default = False)
     #token allows persistent login based on timeing - logic to follow
     token = db.Column(db.String , default = "")
