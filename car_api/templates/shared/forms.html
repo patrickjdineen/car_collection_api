@@ -1,0 +1,17 @@
+<!--uses Flask forms to create a form-->
+{{ form.hidden_tag() }}
+<form method="POST">
+    <!--uses bootstrap forms for classes and placeholders-->
+    <div class="form-group">
+        <fieldset class="email-field">
+            {{ form.email.label }}
+            {{ form.email(class="form-control",placeholder="Email Address") }}
+        </fieldset>
+        <fieldset class="password-field">
+            {{ form.password.label}}
+            {{ form.password(class="form-control",placeholder="Password") }}
+        </fieldset>
+        <!--Button with flask and boostrap classes-->
+        {{ form.submit_button(class= "btn btn-outline-primary btn-block") }}
+    </div>
+</form>
