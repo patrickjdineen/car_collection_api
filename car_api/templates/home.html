@@ -1,6 +1,23 @@
 {% extends "shared/base.html" %}
 {% block content %}
 
+<!--Flash message from Flask on succesful login-->
+<!--If there are messages, for each message, display each message with a close x-->
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories = true) %} 
+        {% if messages %}
+            {% for cat, msg in messages %}
+                {% if cat == 'auth-success' %}
+                    <div class="alert alert-success">
+                        {{ msg }}
+                        <button class="close" data-dismiss = "alert">&times;</button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
 <!--header portion-->
 <header>
     <div class="row">
