@@ -5,7 +5,7 @@ from flask import render_template, request, redirect, url_for, flash, session
 
 #from forms.py
 from car_api.forms import UserLoginForm
-from car_api.models import User
+from car_api.models import User, check_password_hash
 
 from flask_login import login_user, logout_user, current_user, login_required
 
@@ -51,13 +51,14 @@ def signin():
             #if the logged user and the user returned from the matched passwords
             if logged_user and check_password_hash(logged_user.password,password):
                 #take the method to login from flask_user and login the loggeduser defined above
-                login_user(loggeduser)
+                login_user(logged_user)
+                print(logged_user)
                 #do the flash method defined on the home.html (text to display, information for the flash parameter)
                 flash('You were successfully logged in via Email/Password','auth-success')
                 #redirect user to home
                 return redirect(url_for('home'))
             else:
-                flash('Your email/password is incorrect. Please try again','auth-failed')
+                flash('Your email/password is incorrect. Please try again','auth-failure')
                 #keep them on sign in page
                 return redirect(url_for('signin'))
     except:
