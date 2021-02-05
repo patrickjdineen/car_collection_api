@@ -123,7 +123,7 @@ def show_car(current_user_token, id):
     response = cars_schema.dump(car)
     return jsonify(response)
 
-#update all drones
+#update all cars
 @app.route('/cars/<id>', methods = ['POST','PUT'])
 @token_required
 def update_cars(current_user_token, id):
@@ -139,6 +139,7 @@ def update_cars(current_user_token, id):
     response = car_schema.dump(car)
     return jsonify(response)
 
+#delete car
 @app.route('/cars/<id>', methods = ['DELETE'])
 @token_required
 def delete_drone(current_user_token, id):
