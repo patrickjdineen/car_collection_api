@@ -58,9 +58,7 @@ def token_required(our_flask_function):
 
 def verify_owner(current_user_token):
     #creates owner to match car table by user_id
-    print("verify checkpoint")
     owner = Car.query.filter_by(user_id = current_user_token.token).first()
-    print("second verify checkpoint")
     print(current_user_token)
     print(owner)
     #this shouldnt happen, but catches errors
