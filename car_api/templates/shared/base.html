@@ -12,14 +12,14 @@
 </title>
 </head>
 <body>
-    <!--navbar-->
-    <nav class="main-nav">
-        <!--logo image-->
-        <div>
-            <img src="../../static/images/car logo.png" alt="Car Logo">
-        </div>
-        <!--nav links-->
-        <div>
+    <div class="container-fluid">
+        <!--navbar-->
+        <nav class="main-nav">
+            <!--logo image-->
+            <a href="{{ url_for('home') }}">
+                <img src="../../static/images/car logo.png" alt="Car Logo">
+            </a>
+            <!--nav links-->
             <ul class="nav-links">
                 <li>
                     <a href="">Our API</a>
@@ -46,16 +46,16 @@
                     <a href="{{ url_for('signup') }}">Sign Up!</a>
                 </li>
                 {% endif %}
-            </ul>
-        </div>    
-        <!--end nav links-->
-    </nav>
-    <!--end navbar-->
-    
-    {% block content %}
+            </ul>   
+            <!--end nav links-->
+        </nav>
+        <!--end navbar-->
+        
+        {% block content %}
 
-    {% endblock content %}
+        {% endblock content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.4/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.min.js"></script>
+    </div>
 </body>
 </html>

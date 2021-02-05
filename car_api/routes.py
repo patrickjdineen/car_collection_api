@@ -112,7 +112,7 @@ def create_car(current_user_token):
 #show all cars endpoint
 @app.route('/cars', methods = ['GET'])
 @token_required
-def show_cars(current_user_token)
+def show_cars(current_user_token):
     owner, current_user_token = verify_owner(current_user_token)
     cars = Car.query.filter_by(user_id = owner.user_id).all()
     response = cars_schema.dump(cars)
