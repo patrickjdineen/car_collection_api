@@ -1,20 +1,24 @@
 #brings the Flask app created in __init__
 from car_api import app, db, oauth
 #from flask, use the jinja templates, redirection, url replacement, message flashing, session management
-from flask import render_template, request, redirect, url_for, flash, session
+from flask import render_template, request, redirect, url_for, flash, session, jsonify
 
 #from forms.py
 from car_api.forms import UserLoginForm
-from car_api.models import User, check_password_hash
+from car_api.models import User, check_password_hash, Car, car_schema, cars_schema
 
 from flask_login import login_user, logout_user, current_user, login_required
 
 import os
 
+from car_api.helpers import get_jwt, verify_owner, token_required
+
 #makes the homepage
 @app.route('/')
 def home():
     return render_template('home.html')
+
+
 
 #creates a route for the sign up page
 @app.route('/signup', methods= ['GET','POST'])
@@ -75,6 +79,75 @@ def logout():
         for key in list(session.keys()):
             session.pop(key)
     return redirect(url_for('home'))
+
+@app.route('/garage')
+@login_required
+def garage():
+    #use get_jwt func created in helpers to verify login
+    jwt = get_jwt(current_user)
+    return render_template('garage.html')
+
+#CAR MODIFICATION API ROUTES
+
+#add car route
+@app.route('/cars', methods = ['POST'])
+@token_required
+def create_car(current_user_token):
+    print(current_user_token)
+    make = request.json['make']
+    model =request.json['model']
+    color = request.json['color']
+    price = request.json['price']
+    user_id = current_user_token.token
+
+    car = Car(make,model,color,price,user_id = user_id)
+    db.session.add(car)
+    db.session.commit()
+
+    response = car_schema.dump(car)
+    return jsonify(response)
+
+#show all cars endpoint
+@app.route('/cars', methods = ['GET'])
+def show_cars(current_user_token):
+    owner, current_user_token = verify_owner(current_user_token)
+    cars = Car.query.filter_by(user_id = owner.user_id).all()
+    response = cars_schema.dump(cars)
+    return jsonify(response)
+
+
+@app.route('/cars/<id>', methods = ['GET'])
+def show_car(current_user_token, id):
+    owner, current_user_token = verify_owner(current_user_token)
+    car = Car.query.filter_by(id).first()
+    response = cars_schema.dump(car)
+    return jsonify(response)
+
+#update all drones
+@app.route('/cars/<id>', methods = ['POST','PUT'])
+@token_required
+def update_cars(current_user_token, id):
+    owner, current_user_token = verify_owner(current_user_token)
+    car = Car.query.filter_by(id)
+
+    drone.make = request.json["make"]
+    drone.model = request.json["model"]
+    drone.color = request.json["color"]
+    drone.price = request.json["price"]
+
+    db.session.commit()
+    response = car_schema(dump)
+    return jsonify(response)
+
+@app.route('/cars/<id>', methods = ['DELETE'])
+@token_required
+def delete_drone(current_user_token, id):
+    owner, current_user_token = verify_owner(current_user_token)
+    car = Car.query.get(id)
+    db.session.delete(car)
+    db.session.commit()
+    response = car_schema.dump(car)
+    return jsonify(response)
 
 #Create Google Authentication Routes
 google = oauth.register(

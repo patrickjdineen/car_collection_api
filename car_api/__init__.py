@@ -13,6 +13,9 @@ from flask_login import LoginManager
 #imports OAuth class from the authentication library
 from authlib.integrations.flask_client import OAuth
 
+#import of masrhmallow
+from flask_marshmallow import Marshmallow
+
 #create the application from class type Flask
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -27,6 +30,9 @@ login_manager.login_view = 'signin'
 
 #creates instance of oauth class for use within the app
 oauth = OAuth(app)
+
+#instantiates marshmallow for use in app
+ma = Marshmallow(app)
 
 #bringing in routes.py and models.py
 from car_api import routes, models

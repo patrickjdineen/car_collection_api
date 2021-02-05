@@ -1,5 +1,5 @@
 #bring the whole flask app and database into models
-from car_api import app, db, login_manager
+from car_api import app, db, login_manager, ma
 #brining in uuid for security and user authentication
 import uuid
 #brining in datetime for timestamps
@@ -28,7 +28,7 @@ class User(db.Model, UserMixin):
     #creates True/False to tie account with google authentication
     g_auth_verify = db.Column(db.Boolean, default = False)
     #token allows persistent login based on timeing - logic to follow
-    token = db.Column(db.String , default = "")
+    token = db.Column(db.String , default = "", unique = True)
     #create automatic timestamp when account is first created
     date_created = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
 
@@ -57,3 +57,39 @@ class User(db.Model, UserMixin):
 
     def __repr__self(self):
         return f'User {self.email} has been added to the database'
+
+#Create a class for Car to enable addition of table, data, into postgres
+class Car(db.Model):
+    #creates PK of ID
+    id = db.Column(db.Integer, primary_key=True)
+    make = db.Column(db.String(150))
+    model = db.Column(db.String(150))
+    color = db.Column(db.String(150))
+    price = db.Column()
+    user_id = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
+
+    def __init__(self, make, model,color,price,user_id):
+        self.make = make
+        self.model = model
+        self.color = color
+        self.price = price
+        self.user_id = user_id
+    
+    def __repr__(self):
+        return f'The following car {self.model} has been added to {self.user_id}s garage'
+    
+    def to_dict(self):
+        return{
+            "id":self.id,
+            "make":self.make,
+            "model":self.model,
+            "color":self.color,
+            "price":self.price
+        }
+
+class CarSchema(ma.Schema):
+    class Meta:
+        fields = ('id','make','model','color','price')
+
+car_schema = CarSchema()
+cars_schema = CarSchema(many = True)

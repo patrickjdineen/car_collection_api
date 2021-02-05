@@ -78,3 +78,23 @@
     width:50%;
     max-width: 100%;
 }
+
+/* GARAGE Page */
+
+.hero-section{
+    height:95vh;
+    background-image: url(../images/garage.jpg);
+    background-size: cover;
+    background-position:35% 50%;
+    position: relative;
+}
+
+.header-text{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 10%;
+    color:white;
+    text-shadow: -1px -1px 0 blue, 1px -1px 0 blue, -1px 1px 0 blue, 1px 1px 0 blue;
+    font-size:15vh;
+}
