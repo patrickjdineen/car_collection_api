@@ -31,6 +31,7 @@ class User(db.Model, UserMixin):
     token = db.Column(db.String , default = "", unique = True)
     #create automatic timestamp when account is first created
     date_created = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
+    #creates a link to the car table
     car = db.relationship('Car', backref = 'owner', lazy=True)
 
     #creates method for class

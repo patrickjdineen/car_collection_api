@@ -67,6 +67,7 @@ def signin():
                 return redirect(url_for('signin'))
     except:
         raise Exception ('Invalid Form Data: Please check your form...')
+    #again, like jwt below, form=form allows template to see the variable and render it
     return render_template('sign_in.html', form=form)   
 
 #create logout route
@@ -85,7 +86,8 @@ def logout():
 def garage():
     #use get_jwt func created in helpers to verify login
     jwt = get_jwt(current_user)
-    return render_template('garage.html')
+    #didnt have "jwt = jwt" on initial write, used print statements to confirm this worked would push to term that the key existsted, but wouldnt show. once added, now works. need to pass the jwt along into this render template for {{ if jwt }}"
+    return render_template('garage.html', jwt=jwt)
 
 #CAR MODIFICATION API ROUTES
 
@@ -109,31 +111,37 @@ def create_car(current_user_token):
 
 #show all cars endpoint
 @app.route('/cars', methods = ['GET'])
+@token_required
 def show_cars(current_user_token):
+    print("zero checkpoint")
     owner, current_user_token = verify_owner(current_user_token)
+    print("first checkpoint")
     cars = Car.query.filter_by(user_id = owner.user_id).all()
+    print("second checkpoint")
     response = cars_schema.dump(cars)
+    print("third checkpoint")
     return jsonify(response)
 
-
+#show one car route
 @app.route('/cars/<id>', methods = ['GET'])
+@token_required
 def show_car(current_user_token, id):
     owner, current_user_token = verify_owner(current_user_token)
-    car = Car.query.filter_by(id).first()
-    response = cars_schema.dump(car)
+    car = Car.query.get(id)
+    response = car_schema.dump(car)
     return jsonify(response)
 
-#update all cars
+#update a car
 @app.route('/cars/<id>', methods = ['POST','PUT'])
 @token_required
 def update_cars(current_user_token, id):
     owner, current_user_token = verify_owner(current_user_token)
-    car = Car.query.filter_by(id)
+    car = Car.query.get(id)
 
-    drone.make = request.json["make"]
-    drone.model = request.json["model"]
-    drone.color = request.json["color"]
-    drone.price = request.json["price"]
+    car.make = request.json["make"]
+    car.model = request.json["model"]
+    car.color = request.json["color"]
+    car.price = request.json["price"]
 
     db.session.commit()
     response = car_schema.dump(car)
