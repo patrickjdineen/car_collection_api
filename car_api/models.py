@@ -31,6 +31,7 @@ class User(db.Model, UserMixin):
     token = db.Column(db.String , default = "", unique = True)
     #create automatic timestamp when account is first created
     date_created = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
+    car = db.relationship('Car', backref = 'owner', lazy=True)
 
     #creates method for class
     def __init__(self,email, first_name = "", last_name = "", id="", password = "",token = "",g_auth_verify = False):
@@ -65,7 +66,7 @@ class Car(db.Model):
     make = db.Column(db.String(150))
     model = db.Column(db.String(150))
     color = db.Column(db.String(150))
-    price = db.Column()
+    price = db.Column(db.Integer)
     user_id = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
     def __init__(self, make, model,color,price,user_id):

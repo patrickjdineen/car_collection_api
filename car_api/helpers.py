@@ -10,17 +10,16 @@ from datetime import datetime
 def get_jwt(current_user):
     #creates a jwt_token that is encoded by JWT
     jwt_token = jwt.encode(
-        {
-            #sets the "owner" of the car to tie tot he token
-            'owner':current_user.token,
-            #sets the token based off access time (to update and increment??)
-            'access_time': json.dumps(datetime.utcnow(), indent=4, sort_keys=4, default =str)
-        },
+    {
+        #sets the "owner" of the car to tie tot he token
+        'owner':current_user.token,
+        #sets the token based off access time (to update and increment??)
+        'access_time': json.dumps(datetime.utcnow(), indent=4, sort_keys=4, default =str)
+    },
     #sets part of the encoding unlock key to the secret_key of this app defined in .env
     app.config['SECRET_KEY'],
     #sets the algorith for encoding
-    algorithm = 'HS256'
-    )
+    algorithm = 'HS256')
     return jwt_token
 
 #helper function to define the token_required decorator to be used in routes. 

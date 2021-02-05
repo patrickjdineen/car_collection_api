@@ -11,7 +11,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 
 import os
 
-from car_api.helpers import get_jwt, verify_owner, token_required
+from car_api.helpers import get_jwt, token_required, verify_owner
 
 #makes the homepage
 @app.route('/')
@@ -136,7 +136,7 @@ def update_cars(current_user_token, id):
     drone.price = request.json["price"]
 
     db.session.commit()
-    response = car_schema(dump)
+    response = car_schema.dump(car)
     return jsonify(response)
 
 @app.route('/cars/<id>', methods = ['DELETE'])

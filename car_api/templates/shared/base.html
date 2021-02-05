@@ -30,10 +30,11 @@
                 <li>
                     <a href="">Our Team</a>
                 </li>
+                
+                {% if current_user.is_authenticated %}
                 <li>
                     <a href="{{ url_for('garage')}}">Garage</a>
                 </li>
-                {% if current_user.is_authenticated %}
                 <li>
                 <a href="{{ url_for('logout')}}">Log Out</a>
                 </li>
